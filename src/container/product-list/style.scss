@@ -1,0 +1,70 @@
+@use '../../lib/service.scss' as s;
+
+.heading {
+	font-size: 32px;
+	font-weight: bold;
+	color: s.color('primary');
+	margin-left: s.space(6);
+	margin-block: s.space(8);
+}
+
+.products {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	row-gap: s.space(10);
+	column-gap: s.space(4);
+	padding: s.space(6);
+}
+
+.product {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+
+	border: 1px solid s.color('light');
+	border-radius: 10px;
+	box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+
+	padding: s.space(4);
+	gap: s.space(6);
+	
+
+	&__action {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		width: 100%;
+	}
+
+	&__title {
+		font-size: 20px;
+		font-weight: bold;
+	}
+
+	&__description {
+		font-size: 16px;
+	}
+
+	&__id {
+		text-transform: uppercase;
+		font-size: 18px;
+		color: gray;
+	}
+
+	&__price {
+		font-size: 20px;
+		font-weight: bold;
+	}
+
+	&__button {	
+		justify-self: end;
+		font-size: 18px;
+		font-weight: bold;
+		text-decoration: none;
+		color: s.color('primary');
+	}
+
+	&__button:hover {
+		opacity: 0.7;
+	}
+}
+

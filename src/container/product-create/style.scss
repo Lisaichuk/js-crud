@@ -1,0 +1,72 @@
+@use '../../lib/service.scss' as s;
+
+.heading {
+	font-size: 24px;
+	font-weight: bold;
+	color: s.color('primary');
+	margin-left: s.space(6);
+	margin-block: s.space(8);
+}
+
+.form {
+	display: flex;
+	flex-direction: column;
+	padding: s.space(4);
+	margin: s.space(6);
+	gap: s.space(6);
+	border: 1px solid s.color('light');
+	border-radius: 10px;
+	box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+
+	&__title {
+		font-size: 20px;
+		font-weight: bold;
+		padding-bottom: s.space(1);
+	}
+
+	&__content {
+		display: grid;
+		gap: s.space(6);
+	}
+
+	&__double {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: s.space(6);
+	}
+
+	&__field {
+		display: flex;
+		flex-direction: column;
+		gap: s.space(2);
+	}
+
+	&__label {
+		font-size: 14px;
+	}
+
+	&__input {
+		border: 1px solid s.color('light');	
+		padding: s.space(2);
+	}
+
+	&__sign {
+		font-size: 14px;
+		color: s.color('light');
+	}
+
+	&__button {
+		font-size: 18px;
+		width: 100%;
+		color: white;
+		background-color: s.color('primary');
+		border: 1px solid s.color('light');
+		padding: s.space(2);
+	}
+}
+
+main {
+	display: flex;
+	flex-direction: column;
+	gap: s.space(10);
+}

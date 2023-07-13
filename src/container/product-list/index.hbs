@@ -1,0 +1,17 @@
+<main>
+	<h1 class="heading">Список товарів</h1>
+
+	<section class="products">
+		{{#each product}}
+
+		{{#if isEmpty}}
+		<mark>Список товарів пустий</mark>
+		{{else}}
+
+		{{> product-card}}
+
+		{{/if}}
+
+		{{/each}}
+	</section>
+</main>
