@@ -5,6 +5,7 @@
 			<strong class="form__title">Інформація про товар</strong>
 
 			<form method="POST" action="/product-edit">
+				{{#with data}}
 				<div class="form__content">
 					<div class="form__trible">
 						<div class="form__field">
@@ -34,6 +35,7 @@
 						<button class="form__button form__button-delete">Видалити товар</button>
 					</div>
 				</div>
+				{{/with}}
 			</form>
 		</div>
 	</section>

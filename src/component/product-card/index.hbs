@@ -1,3 +1,4 @@
+{{#with data.products}}
 <div class="product">
 	<strong class="product__title">{{title}}</strong>
 	<p class="product__description">{{description}}</p>
@@ -7,3 +8,4 @@
 		<a class="product__button" href="/product-edit?id={{id}}">Редагувати</a>
 	</div>
 </div>
+{{/with}}

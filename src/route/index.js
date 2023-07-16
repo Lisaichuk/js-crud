@@ -63,11 +63,9 @@ class User {
 class Product {
   constructor(name, price, description) {
     const randomNumber = Math.floor(Math.random() * 10)
-    const randomId = randomNumber
-      .toString()
-      .padStart(5, '0')
+    const id = randomNumber.toString().padStart(5, '0')
 
-    this.id = randomId
+    this.id = id
     this.name = name
     this.price = price
     this.description = description
@@ -85,23 +83,17 @@ class Product {
   static getById = (id) =>
     this.#list.find((product) => product.id === id)
 
-  static updateById = (
-    id,
-    { name, price, description },
-  ) => {
+  static updateById = (id, data) => {
     const product = this.getById(id)
 
     if (product) {
-      if (name && price && description) {
-        product.name = name
-        product.price = price
-        product.description = description
-        return true
-      }
+      this.update(user, data)
+      return true
     } else {
       return false
     }
   }
+
   static deleteById = (id) => {
     const index = this.#list.findIndex(
       (product) => product.id === id,
@@ -299,7 +291,7 @@ router.get('/product-edit', function (req, res) {
 // ================================================================
 
 router.post('/product-edit', function (req, res) {
-  const { name, price, id, description } = req.body
+  const { id, name, price, description } = req.body
 
   const success = Product.updateById(Number(id), {
     name,
