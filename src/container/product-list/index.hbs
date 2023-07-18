@@ -2,10 +2,10 @@
 	<h1 class="heading">Список товарів</h1>
 
 	<section class="products">
-		{{#each product}}
+		{{#with product}}
 
 		{{> product-card}}
 
-		{{/each}}
+		{{/with}}
 	</section>
 </main>

@@ -1,11 +1,13 @@
 {{#with data.products}}
+{{#each list}}
 <div class="product">
-	<strong class="product__title">{{title}}</strong>
+	<strong class="product__title">{{name}}</strong>
 	<p class="product__description">{{description}}</p>
 	<div class="product__id">ID: {{id}}</div>
 	<div class="product__action">
 		<div class="product__price">{{price}}</div>
-		<a class="product__button" href="/product-edit?id={{id}}">Редагувати</a>
+		<button class="product__button"><a href="/product-edit?id={id}}">Редагувати</a></button>
 	</div>
 </div>
+{{/each}}
 {{/with}}

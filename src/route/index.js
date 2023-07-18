@@ -62,14 +62,13 @@ class User {
 
 class Product {
   constructor(name, price, description) {
-    const randomNumber = Math.floor(Math.random() * 10)
-    const id = randomNumber.toString().padStart(5, '0')
-
-    this.id = id
     this.name = name
     this.price = price
     this.description = description
-    this.createDate = new Date().toISOString()
+    this.id = Math.floor(Math.random() * 100000)
+    this.createDate = () => {
+      this.date = new Date().toISOString()
+    }
   }
 
   static #list = []
@@ -85,12 +84,21 @@ class Product {
 
   static updateById = (id, data) => {
     const product = this.getById(id)
+    const { name } = data
 
     if (product) {
-      this.update(user, data)
+      if (name) {
+        product.name = name
+      }
       return true
     } else {
       return false
+    }
+  }
+
+  static update = (name, { product }) => {
+    if (name) {
+      product.name = name
     }
   }
 
@@ -188,6 +196,8 @@ router.post('/user-update', function (req, res) {
 // ================================================================
 
 router.get('/product-create', function (req, res) {
+  const list = Product.getList()
+
   res.render('product-create', {
     style: 'product-create',
   })
@@ -198,22 +208,23 @@ router.get('/product-create', function (req, res) {
 router.post('/product-create', function (req, res) {
   const { name, price, description } = req.body
 
-  if (name && price && description) {
-    const product = new Product(name, price, description)
-    Product.add(product)
+  //   if (name && price && description) {
+  const product = new Product(name, price, description)
+  Product.add(product)
 
-    res.render('alert', {
-      style: 'alert',
-      info: 'Товар успішно створений!',
-      success: true,
-    })
-  } else {
-    res.render('alert', {
-      style: 'alert',
-      info: 'Помилка. Неможливо створити товар!',
-      success: false,
-    })
-  }
+  res.render('alert', {
+    style: 'alert',
+    info: 'Товар успішно створений!',
+    success: true,
+  })
+
+  //   } else {
+  //     res.render('alert', {
+  //       style: 'alert',
+  //       info: 'Помилка. Неможливо створити товар!',
+  //       success: false,
+  //     })
+  //   }
 })
 
 // ================================================================
@@ -224,67 +235,35 @@ router.get('/product-list', function (req, res) {
   res.render('product-list', {
     style: 'product-list',
 
-    products: {
-      list,
-      isEmpty: list.length === 0,
+    data: {
+      products: {
+        list,
+        isEmpty: list.length === 0,
+      },
     },
-
-    product: [
-      {
-        title: 'Стильна сукня',
-        description:
-          'Елегантна сукня з натуральної тканини для особливих випадків.',
-        id: '1936402846',
-        price: '1500₴',
-      },
-      {
-        title: 'Спортивні кросівки',
-        description:
-          'Зручні та стильні кросівки для активного способу життя.',
-        id: '2047304827',
-        price: '1200₴',
-      },
-      {
-        title: 'Сонячні окуляри',
-        description:
-          'Модні окуляри з високоякісними лінзами для захисту очей від сонця.',
-        id: '2947302649',
-        price: '800₴',
-      },
-      {
-        title: 'Чоловічий годинник',
-        description:
-          'Елегантний годинник з механічним механізмом і сталевим браслетом.',
-        id: '1835294638',
-        price: '2500₴',
-      },
-      {
-        title: 'Жіночий рюкзак',
-        description:
-          'Стильний рюкзак з великим відділенням та кишенями.',
-        id: '2037491746',
-        price: '900₴',
-      },
-      {
-        title: 'Парасолька',
-        description:
-          'Компактна парасолька з автоматичним механізмом.',
-        id: '1096352946',
-        price: '350₴',
-      },
-    ],
   })
 })
 
 // ================================================================
 
 router.get('/product-edit', function (req, res) {
-  const id = Number(req.query.id)
-  const product = Product.getById(id)
+  const { id } = req.query
+  const product = Product.getById(Number(id))
 
-  res.render('product-edit', {
+  //   res.render('product-edit', {
+  //     style: 'product-edit',
+  //     product,
+  //   })
+
+  return res.render('product-edit', {
     style: 'product-edit',
-    product,
+
+    data: {
+      name: product.name,
+      price: product.price,
+      id: product.id,
+      description: product.description,
+    },
   })
 })
 
