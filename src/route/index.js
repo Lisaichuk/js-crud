@@ -60,7 +60,12 @@ class User {
   }
 }
 
+// ================================================================
+// Нова сутність Product
+
 class Product {
+  static #list = []
+
   constructor(name, price, description) {
     this.name = name
     this.price = price
@@ -71,8 +76,6 @@ class Product {
     }
   }
 
-  static #list = []
-
   static getList = () => this.#list
 
   static add = (product) => {
@@ -81,6 +84,19 @@ class Product {
 
   static getById = (id) =>
     this.#list.find((product) => product.id === id)
+
+  static deleteById = (id) => {
+    const index = this.#list.findIndex(
+      (product) => product.id === id,
+    )
+
+    if (index !== -1) {
+      this.#list.splice(index, 1)
+      return true
+    } else {
+      return false
+    }
+  }
 
   static updateById = (id, data) => {
     const product = this.getById(id)
@@ -99,19 +115,6 @@ class Product {
   static update = (name, { product }) => {
     if (name) {
       product.name = name
-    }
-  }
-
-  static deleteById = (id) => {
-    const index = this.#list.findIndex(
-      (product) => product.id === id,
-    )
-
-    if (index !== -1) {
-      this.#list.splice(index, 1)
-      return true
-    } else {
-      return false
     }
   }
 }
@@ -208,23 +211,13 @@ router.get('/product-create', function (req, res) {
 router.post('/product-create', function (req, res) {
   const { name, price, description } = req.body
 
-  //   if (name && price && description) {
   const product = new Product(name, price, description)
   Product.add(product)
 
   res.render('alert', {
     style: 'alert',
     info: 'Товар успішно створений!',
-    success: true,
   })
-
-  //   } else {
-  //     res.render('alert', {
-  //       style: 'alert',
-  //       info: 'Помилка. Неможливо створити товар!',
-  //       success: false,
-  //     })
-  //   }
 })
 
 // ================================================================
@@ -250,21 +243,23 @@ router.get('/product-edit', function (req, res) {
   const { id } = req.query
   const product = Product.getById(Number(id))
 
-  //   res.render('product-edit', {
-  //     style: 'product-edit',
-  //     product,
-  //   })
+  if (product) {
+    return res.render('product-edit', {
+      style: 'product-edit',
 
-  return res.render('product-edit', {
-    style: 'product-edit',
-
-    data: {
-      name: product.name,
-      price: product.price,
-      id: product.id,
-      description: product.description,
-    },
-  })
+      data: {
+        name: product.name,
+        price: product.price,
+        id: product.id,
+        description: product.description,
+      },
+    })
+  } else {
+    return res.render('alert', {
+      style: 'alert',
+      info: 'Продукту за таким ID не знайдено',
+    })
+  }
 })
 
 // ================================================================
@@ -272,23 +267,21 @@ router.get('/product-edit', function (req, res) {
 router.post('/product-edit', function (req, res) {
   const { id, name, price, description } = req.body
 
-  const success = Product.updateById(Number(id), {
+  const product = Product.updateById(Number(id), {
     name,
     price,
     description,
   })
 
-  if (success) {
+  if (product) {
     res.render('alert', {
       style: 'alert',
-      info: 'Товар оновлено!',
-      success: true,
+      info: 'Інформація про товар оновлена!',
     })
   } else {
     res.render('alert', {
       style: 'alert',
-      info: 'Помилка. Товар з таким ID не знайдено',
-      success: false,
+      info: 'Сталася помилка',
     })
   }
 })
@@ -296,22 +289,13 @@ router.post('/product-edit', function (req, res) {
 // ================================================================
 
 router.get('/product-delete', function (req, res) {
-  const id = Number(req.query.id)
-  const success = Product.deleteById(id)
+  const { id } = req.query
+  Product.deleteById(Number(id))
 
-  if (success) {
-    res.render('alert', {
-      style: 'alert',
-      info: 'Товар видалено!',
-      success: true,
-    })
-  } else {
-    res.render('alert', {
-      style: 'alert',
-      info: 'Помилка. Неможливо видалити товар!',
-      success: false,
-    })
-  }
+  res.render('alert', {
+    style: 'alert',
+    info: 'Товар видалено!',
+  })
 })
 // Підключаємо роутер до бек-енду
 module.exports = router

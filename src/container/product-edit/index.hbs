@@ -4,23 +4,23 @@
 		<div class="form">
 			<strong class="form__title">Інформація про товар</strong>
 
+			{{#with data}}
 			<form method="POST" action="/product-edit">
-				{{#with data}}
 				<div class="form__content">
 					<div class="form__trible">
 						<div class="form__field">
 							<label for="name" class="form__label">Назва товару</label>
-							<input type="name" name="name" class="form__input">
+							<input type="name" name="name" class="form__input">{{name}}
 						</div>
 
 						<div class="form__field">
 							<label for="price" class="form__label">Ціна</label>
-							<input type="price" name="price" class="form__input">
+							<input type="price" name="price" class="form__input">{{price}}
 						</div>
 
 						<div class="form__field">
 							<label for="id" class="form__label">ID</label>
-							<input type="id" name="id" class="form__input">
+							<input type="id" name="id" class="form__input">{{id}}
 						</div>
 					</div>
 
@@ -35,8 +35,8 @@
 						<button class="form__button form__button-delete">Видалити товар</button>
 					</div>
 				</div>
-				{{/with}}
 			</form>
+			{{/with}}
 		</div>
 	</section>
 </main>
