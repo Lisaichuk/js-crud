@@ -116,18 +116,9 @@ class Product {
     }
   }
 
-  static update = (
-    name,
-    price,
-    description,
-    { product },
-  ) => {
+  static update = (name, { product }) => {
     if (name) {
       product.name = name
-    } else if (price) {
-      product.price = price
-    } else if (description) {
-      product.description = description
     }
   }
 }
