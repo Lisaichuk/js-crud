@@ -103,22 +103,13 @@ class Product {
     const { name, price, description } = data
 
     if (product) {
-      if (name) {
-        product.name = name
-      } else if (price) {
-        product.price = price
-      } else if (description) {
-        product.description = description
-      }
+      product.name = name
+      product.price = price
+      product.description = description
+
       return true
     } else {
       return false
-    }
-  }
-
-  static update = (name, { product }) => {
-    if (name) {
-      product.name = name
     }
   }
 }
