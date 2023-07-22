@@ -1,0 +1,64 @@
+.heading {
+  font-size: 24px;
+  font-weight: bold;
+  color: #0D6EFD;
+  margin-left: 24px;
+  margin-block: 32px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  margin: 24px;
+  gap: 24px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+}
+.form__title {
+  font-size: 20px;
+  font-weight: bold;
+  padding-bottom: 4px;
+}
+.form__content {
+  display: grid;
+  gap: 24px;
+}
+.form__double {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+.form__field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.form__label {
+  font-size: 14px;
+}
+.form__input {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+.form__sign {
+  font-size: 14px;
+  color: #ddd;
+}
+.form__button {
+  font-size: 18px;
+  width: 100%;
+  color: white;
+  background-color: #0D6EFD;
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+/*# sourceMappingURL=style.css.map */
