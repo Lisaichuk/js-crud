@@ -1,0 +1,51 @@
+@use '../../lib/service.scss' as s;
+
+@use '../../component/divider/style.scss' as divider;
+
+.heading {
+	font-size: 32px;
+	font-weight: bold;
+	color: s.color('primary');
+	margin-left: s.space(6);
+	margin-block: s.space(8);
+}
+
+.purchase-list {
+	display: flex;
+	flex-direction: column;
+	gap: s.space(6);
+	padding: s.space(6);
+}
+
+.purchase {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);	
+	align-items: flex-start;
+
+	padding: s.space(4);
+	gap: s.space(6);
+	
+
+	&__id {
+		display: flex;
+		align-self: center;
+		font-size: 16px;
+		color: gray;
+	}
+
+	&__product {
+		display: flex;
+		flex-direction: column;
+		gap: s.space(4);
+	}
+
+	&__title {
+		font-size: 16px;
+		color: gray;
+	}
+
+	&__info {
+		font-size: 16px;
+	}
+}
+
