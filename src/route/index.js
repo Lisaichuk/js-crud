@@ -467,17 +467,66 @@ router.get('/purchase-list', function (req, res) {
 
 // ================================================================
 
-// router.get('/purchase-info', function (req, res) {
-//   const id = Number(req.query.id)
-//   const list = Purchase.getById(id)
+router.get('/purchase-info', function (req, res) {
+  const id = Number(req.query.id)
+  const list = Purchase.getById()
 
-//   res.render('purchase-info', {
-//     style: 'purchase-info',
+  res.render('purchase-info', {
+    style: 'purchase-info',
 
-//     data: {
+    data: {},
+  })
+})
 
-//     },
-//   })
-// })
+// ================================================================
+
+router.get('/purchase-edit', function (req, res) {
+  const { id } = req.query
+  const purchase = Purchase.getById(Number(id))
+
+  if (purchase) {
+    return res.render('purchase-edit', {
+      style: 'purchase-edit',
+
+      data: {
+        firstname: purchase.firstname,
+        lastname: purchase.lastname,
+        email: purchase.email,
+        phone: purchase.phone,
+      },
+    })
+  } else {
+    return res.render('alert-purchase', {
+      style: 'alert-purchase',
+      info: 'Замовлення з таким ID не знайдено',
+    })
+  }
+})
+
+// ================================================================
+
+router.post('/purchase-edit', function (req, res) {
+  const { id, firstname, lastname, email, phone } = req.body
+
+  const purchase = Purchase.updateById(Number(id), {
+    firstname,
+    lastname,
+    email,
+    phone,
+  })
+
+  if (purchase) {
+    res.render('alert-purchase', {
+      style: 'alert-purchase',
+      info: 'Інформація про покупця оновлена!',
+    })
+  } else {
+    res.render('alert-purchase', {
+      style: 'alert-purchase',
+      info: 'Сталася помилка',
+    })
+  }
+})
+
 // Підключаємо роутер до бек-енду
 module.exports = router
