@@ -157,19 +157,20 @@ class Purchase {
   }
 
   static getList = () => {
-    return Purchase.#list
-      .reverse()
-      .map(({ id, product, productPrice, bonus }) => {
-        id, product, productPrice, bonus
-      })
+    return Purchase.#list.reverse().map((purchase) => ({
+      id: purchase.id,
+      product: purchase.product.title,
+      totalPrice: purchase.totalPrice,
+      bonus: Purchase.calcBonusAmount(purchase.totalPrice),
+    }))
   }
 
   static getById = (id) => {
-    return Purchase.#list.find((item) => item.id === id)
+    return this.#list.find((item) => item.id === id)
   }
 
   static updateById = (id, data) => {
-    const purchase = Purchase.getById(id)
+    const purchase = this.getById(id)
 
     if (purchase) {
       if (data.firstname)
@@ -251,13 +252,14 @@ router.post('/purchase-create', function (req, res) {
   const amount = Number(req.body.amount)
 
   if (amount < 1) {
-    return res.render('alert-purchase', {
-      style: 'alert-purchase',
+    return res.render('alert', {
+      style: 'alert',
 
       data: {
         message: 'Помилка',
         info: 'Некоректна кількість товару',
-        link: `/purchase-product?id=${id}`,
+        linkBack: `/purchase-product?id=${id}`,
+        linkText: 'Повернутись назад',
       },
     })
   }
@@ -265,13 +267,14 @@ router.post('/purchase-create', function (req, res) {
   const product = Product.getById(id)
 
   if (product.amount < 1) {
-    return res.render('alert-purchase', {
-      style: 'alert-purchase',
+    return res.render('alert', {
+      style: 'alert',
 
       data: {
         message: 'Помилка',
         info: 'Такої кількості товару немає в наявності',
-        link: `/purchase-product?id=${id}`,
+        linkBack: `/purchase-product?id=${id}`,
+        linkText: 'Повернутись назад',
       },
     })
   }
@@ -331,25 +334,27 @@ router.post('/purchase-submit', function (req, res) {
   const product = Product.getById(id)
 
   if (!product) {
-    return res.render('alert-purchase', {
-      style: 'alert-purchase',
+    return res.render('alert', {
+      style: 'alert',
 
       data: {
         message: 'Помилка',
         info: 'Товар не знайдено',
-        link: `/purchase-list`,
+        linkBack: `/purchase-product?id=${id}`,
+        linkText: 'Повернутись назад',
       },
     })
   }
 
   if (product.amount < amount) {
-    return res.render('alert-purchase', {
-      style: 'alert-purchase',
+    return res.render('alert', {
+      style: 'alert',
 
       data: {
         message: 'Помилка',
         info: 'Немає товару в потрібній кількості',
-        link: `/purchase-list`,
+        linkBack: `/purchase-product?id=${id}`,
+        linkText: 'Повернутись назад',
       },
     })
   }
@@ -367,25 +372,27 @@ router.post('/purchase-submit', function (req, res) {
     isNaN(amount) ||
     isNaN(bonus)
   ) {
-    return res.render('alert-purchase', {
-      style: 'alert-purchase',
+    return res.render('alert', {
+      style: 'alert',
 
       data: {
         message: 'Помилка',
         info: 'Некоректні дані',
-        link: `/purchase-list`,
+        linkBack: `/purchase-create?id=${id}`,
+        linkText: 'Повернутись назад',
       },
     })
   }
 
   if (!firstname || !lastname || !phone || !email) {
-    return res.render('alert-purchase', {
-      style: 'alert-purchase',
+    return res.render('alert', {
+      style: 'alert',
 
       data: {
         message: `Заповніть обов'язкові поля!`,
         info: 'Некоректні дані',
-        link: `/purchase-list`,
+        linkBack: `/purchase-create?id=${id}`,
+        linkText: 'Повернутись назад',
       },
     })
   }
@@ -436,13 +443,14 @@ router.post('/purchase-submit', function (req, res) {
 
   console.log(purchase)
 
-  res.render('alert-purchase', {
-    style: 'alert-purchase',
+  res.render('alert', {
+    style: 'alert',
 
     data: {
       message: `Успішно`,
       info: 'Замовлення створено',
-      link: `/purchase-list`,
+      linkBack: `/purchase-list`,
+      linkText: 'Перейти до списку замовлень',
     },
   })
   // ↑↑ сюди вводимо JSON дані
@@ -469,63 +477,78 @@ router.get('/purchase-list', function (req, res) {
 
 router.get('/purchase-info', function (req, res) {
   const id = Number(req.query.id)
-  const list = Purchase.getById()
+  const purchase = Purchase.getById(id)
+  const bonus = Purchase.calcBonusAmount(
+    purchase.totalPrice,
+  )
 
   res.render('purchase-info', {
     style: 'purchase-info',
 
-    data: {},
+    data: {
+      purchase: purchase,
+      bonus: bonus,
+    },
   })
 })
 
 // ================================================================
 
 router.get('/purchase-edit', function (req, res) {
-  const { id } = req.query
-  const purchase = Purchase.getById(Number(id))
+  const id = Number(req.query.id)
 
-  if (purchase) {
-    return res.render('purchase-edit', {
-      style: 'purchase-edit',
+  return res.render('purchase-edit', {
+    style: 'purchase-edit',
 
-      data: {
-        firstname: purchase.firstname,
-        lastname: purchase.lastname,
-        email: purchase.email,
-        phone: purchase.phone,
-      },
-    })
-  } else {
-    return res.render('alert-purchase', {
-      style: 'alert-purchase',
-      info: 'Замовлення з таким ID не знайдено',
-    })
-  }
+    data: {
+      purchase: Purchase.getById(id),
+    },
+  })
 })
 
 // ================================================================
 
 router.post('/purchase-edit', function (req, res) {
-  const { id, firstname, lastname, email, phone } = req.body
+  const id = Number(req.query.id)
 
-  const purchase = Purchase.updateById(Number(id), {
+  let { firstname, lastname, email, phone } = req.body
+
+  const purchase = Purchase.getById(id)
+
+  if (!purchase) {
+    return res.render('alert', {
+      style: 'alert',
+      message: 'Помилка!',
+      info: 'Замовлення не знайдено',
+      linkBack: `purchase-list`,
+      linkText: 'Перейти до списку замовлень',
+    })
+  }
+
+  const editedPurchase = Purchase.updateById(id, {
     firstname,
     lastname,
     email,
     phone,
   })
 
-  if (purchase) {
-    res.render('alert-purchase', {
-      style: 'alert-purchase',
-      info: 'Інформація про покупця оновлена!',
-    })
-  } else {
-    res.render('alert-purchase', {
-      style: 'alert-purchase',
-      info: 'Сталася помилка',
+  if (!editedPurchase) {
+    res.render('alert', {
+      style: 'alert',
+      message: 'Сталася помилка',
+      info: 'Неможливо змінити дані покупця',
+      linkBack: `purchase-info`,
+      linkText: 'Повернутись назад',
     })
   }
+
+  res.render('alert', {
+    style: 'alert',
+    message: 'Успішно!',
+    info: 'Інформація про покупця оновлена!',
+    linkBack: `purchase-list`,
+    linkText: 'Повернутись назад',
+  })
 })
 
 // Підключаємо роутер до бек-енду

@@ -1,43 +1,67 @@
 <main class="main">
-	{{#with data}}
-	<form method="GET" action="/purchase-submit?id={{id}}" class="form-card">
+	<form method="POST" action="/purchase-edit?id={{id}}" class="form-card">
 
-		{{> heading title="Інформація про замовлення"}}
+		{{> purchase-heading title="Інформація про замовлення"}}
 
-		<div class="user-info">
-			<span class="identifier">ID:</span>
-			<span>{{id}}</span>
+		{{#with data.purchase}}
+
+		<div class="purchase-info">
+
+			<div class="form-card__info">
+				<span class="form-card__title">ID:</span>
+				<span>{{id}}</span>
+			</div>
+
+			{{> divider}}
+
+			<div class="form-card__info">
+				<div>
+					<span class="form-card__title">Ім'я:</span>
+					<span>{{firstname}}</span>
+				</div>
+				<div>
+					<span class="form-card__title">Прізвище:</span>
+					<span>{{firstname}}</span>
+				</div>
+				<div>
+					<span class="form-card__title">Телефон:</span>
+					<span>{{firstname}}</span>
+				</div>
+				<div>
+					<span class="form-card__title">Електронна пошта:</span>
+					<span>{{firstname}}</span>
+				</div>
+			</div>
+
+			{{> divider}}
+
+			<div class="form-card__info">
+				<span class="form-card__title">Адреса доставки:</span>
+				<span>???</span>
+				<span class="form-card__title">Назва товару:</span>
+				<span>{{product.title}}</span>
+			</div>
+
+			{{> divider}}
+
+			<div class="form-card__info">
+				<span class="form-card__title">Вартість товарів:</span>
+				<span>{{productPrice}}₴</span>
+				<span class="form-card__title">Вартість доставки:</span>
+				<span>{{deliveryPrice}}₴</span>
+				<span class="form-card__title">Сума до сплати:</span>
+				<span>{{totalPrice}}₴</span>
+				<span class="form-card__title">Нараховані бонуси:</span>
+				<span>{{../data.bonus}}₴</span>
+			</div>
+
+			{{> divider}}
+
 		</div>
 
-		{{> divider}}
+		{{>button text="Змінити дані"}}
 
-		{{> field label="Ім'я" name="firstname"}}
-		{{> field label="Прізвище" name="lastname"}}
-		{{> field label="Телефон" name="phone"}}
-		{{> field label="Пошта" name="email"}}
-
-		{{> divider}}
-
-		{{> field value=totalPrice name="totalPrice" disabled=true}}
-		{{> field value=productPrice name="productPrice" disabled=true}}
-		{{> field value=deliveryPrice name="deliveryPrice" disabled=true}}
-		{{> field value=amount name="amount" disabled=true}}
-
-		<strong class="form-card__total">
-			<div class="form-card__title">Вартість товарів: </div>
-			<div>productPrice</div>
-			<div class="form-card__title">Вартість доставки:</div>
-			<div>deliveryPrice</div>
-			<div class="form-card__title">Сума до сплати: </div>
-			<div>totalPrice</div>
-			<div class="form-card__title">Нараховані бонуси:</div>
-			<div>bonus</div>
-		</strong>
-
-		{{> divider}}
-
-		{{> button text="Змінити дані"}}
+		{{/with}}
 
 	</form>
-	{{/with}}
 </main>

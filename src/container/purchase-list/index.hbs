@@ -1,5 +1,5 @@
-<main>
-	{{> heading title="Мої замовлення"}}
+<main class="main">
+	{{> purchase-heading title="Мої замовлення"}}
 
 	<section class="purchase-list">
 
@@ -9,21 +9,23 @@
 		{{else}}
 
 		{{#each list}}
-		<div class="purchase">
-			<div class="purchase__id">ID: {{id}}</div>
-			<div class="purchase__product">
-				<div class="purchase__title">Товари</div>
-				<div class="purchase__info">{{product}}</div>
+		<a href="/purchase-info?id={{id}}" class="purchase-list__order">
+
+			<div class="order-group__title">ID: {{id}}</div>
+			<div class="order-group">
+				<div class="order-group__title">Товари</div>
+				<div>{{product}}</div>
 			</div>
-			<div class="purchase__product">
-				<div class="purchase__title">Сума замовлення</div>
-				<div class="purchase__info">{{productPrice}}</div>
+			<div class="order-group">
+				<div class="order-group__title">Сума замовлення</div>
+				<div>{{totalPrice}}₴</div>
 			</div>
-			<div class="purchase__product">
-				<div class="purchase__title">Нараховані бонуси</div>
-				<div class="purchase__info">{{bonus}}</div>
+			<div class="order-group">
+				<div class="order-group__title">Нараховані бонуси</div>
+				<div>{{bonus}}₴</div>
 			</div>
-		</div>
+
+		</a>
 
 		{{> divider}}
 

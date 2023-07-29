@@ -1,0 +1,17 @@
+@use '../../lib/service.scss' as s;
+
+.heading {
+	display: grid;
+	gap: s.space(6);
+
+	&__title {
+		font-size: 32px;
+		font-weight: bold;
+		color: s.color('primary');
+	}
+
+	&__info {
+		font-size: 18px;
+		color: #000;
+	}
+}

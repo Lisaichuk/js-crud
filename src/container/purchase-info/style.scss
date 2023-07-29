@@ -1,7 +1,7 @@
 @use '../../lib/service.scss' as s;
 
 @use '../../component/divider/style.scss' as divider;
-@use '../../component/field/style.scss' as field;
+@use '../../component/purchase-heading/style.scss' as purchase-heading;
 @use '../../component/button/style.scss' as button;
 
 .main {
@@ -11,11 +11,9 @@
 	padding: s.space(10);
 }
 
-.heading {
-	font-size: 32px;
-	font-weight: bold;
-	color: s.color('primary');
-	margin-block: s.space(4);
+.purchase-info {
+	display: grid;
+	gap: s.space(5);
 }
 
 .form-card {
@@ -27,27 +25,25 @@
 	border: 1px solid s.color('light');
 	border-radius: 10px;
 
-	&__total {
+	&__info {
 		display: grid;
 		grid-template-columns: 1fr 1fr;
 		row-gap: s.space(4);
 	}
 
 	&__title {
-		font-size: 16px;
 		color: gray;
 	}
+
 }
 
-.user-info {
-	display: flex;
-	flex-direction: column;
-	font-size: 16px;
+div {
+	display: grid;
 	gap: s.space(2);
 }
 
-.identifier {
-	color: s.color('gray')
+.purchase-button {
+	width: 100%;
 }
 
 
