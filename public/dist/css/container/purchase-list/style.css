@@ -1,0 +1,58 @@
+.heading {
+  display: grid;
+  gap: 24px;
+}
+.heading__title {
+  font-size: 32px;
+  font-weight: bold;
+  color: #0D6EFD;
+}
+.heading__info {
+  font-size: 18px;
+  color: #000;
+}
+
+.product-info__divider {
+  width: 100%;
+  height: 1px;
+  background: #ddd;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  padding: 40px;
+}
+
+.purchase-list {
+  display: grid;
+  gap: 24px;
+}
+.purchase-list__order {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
+  gap: 16px;
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+  transition: opacity 0.7s ease;
+}
+.purchase-list__order:hover {
+  opacity: 0.7;
+}
+.purchase-list__order:visited {
+  color: transparent;
+}
+
+.order-group {
+  display: grid;
+  gap: 12px;
+}
+.order-group__title {
+  color: gray;
+}
+
+/*# sourceMappingURL=style.css.map */

@@ -1,0 +1,37 @@
+<main class="main">
+	{{> purchase-heading title="Мої замовлення"}}
+
+	<section class="purchase-list">
+
+		{{#with data.purchases}}
+		{{#if isEmpty}}
+		<mark>Список замовлень порожній</mark>
+		{{else}}
+
+		{{#each list}}
+		<a href="/purchase-info?id={{id}}" class="purchase-list__order">
+
+			<div class="order-group__title">ID: {{id}}</div>
+			<div class="order-group">
+				<div class="order-group__title">Товари</div>
+				<div>{{product}}</div>
+			</div>
+			<div class="order-group">
+				<div class="order-group__title">Сума замовлення</div>
+				<div>{{totalPrice}}₴</div>
+			</div>
+			<div class="order-group">
+				<div class="order-group__title">Нараховані бонуси</div>
+				<div>{{bonus}}₴</div>
+			</div>
+
+		</a>
+
+		{{> divider}}
+
+		{{/each}}
+		{{/if}}
+		{{/with}}
+
+	</section>
+</main>

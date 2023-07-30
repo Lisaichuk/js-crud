@@ -1,0 +1,67 @@
+<main class="main">
+	<form method="POST" action="/purchase-edit?id={{id}}" class="form-card">
+
+		{{> purchase-heading title="Інформація про замовлення"}}
+
+		{{#with data.purchase}}
+
+		<div class="purchase-info">
+
+			<div class="form-card__info">
+				<span class="form-card__title">ID:</span>
+				<span>{{id}}</span>
+			</div>
+
+			{{> divider}}
+
+			<div class="form-card__info">
+				<div>
+					<span class="form-card__title">Ім'я:</span>
+					<span>{{firstname}}</span>
+				</div>
+				<div>
+					<span class="form-card__title">Прізвище:</span>
+					<span>{{firstname}}</span>
+				</div>
+				<div>
+					<span class="form-card__title">Телефон:</span>
+					<span>{{firstname}}</span>
+				</div>
+				<div>
+					<span class="form-card__title">Електронна пошта:</span>
+					<span>{{firstname}}</span>
+				</div>
+			</div>
+
+			{{> divider}}
+
+			<div class="form-card__info">
+				<span class="form-card__title">Адреса доставки:</span>
+				<span>???</span>
+				<span class="form-card__title">Назва товару:</span>
+				<span>{{product.title}}</span>
+			</div>
+
+			{{> divider}}
+
+			<div class="form-card__info">
+				<span class="form-card__title">Вартість товарів:</span>
+				<span>{{productPrice}}₴</span>
+				<span class="form-card__title">Вартість доставки:</span>
+				<span>{{deliveryPrice}}₴</span>
+				<span class="form-card__title">Сума до сплати:</span>
+				<span>{{totalPrice}}₴</span>
+				<span class="form-card__title">Нараховані бонуси:</span>
+				<span>{{../data.bonus}}₴</span>
+			</div>
+
+			{{> divider}}
+
+		</div>
+
+		{{>button text="Змінити дані"}}
+
+		{{/with}}
+
+	</form>
+</main>
