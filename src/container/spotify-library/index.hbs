@@ -1,0 +1,33 @@
+<main class="main">
+	{{#with data}}
+	<div class="main__content">
+
+		<header class="header">
+			<h1 class="title title--center">Пошук плейліста</h1>
+			<a href="/spotify-search">
+				<img src="/svg/spotify_library_search.svg" alt="search">
+			</a>
+			<a href="/spotify-choose">
+				<img src="/svg/spotify_library_add.svg" alt="add">
+			</a>
+		</header>
+
+		{{#if isEmpty}}
+		<div class="library__amount">Список плейлістiв пустий</div>
+		{{/if}}
+
+		<div class="library">
+			{{#each list}}
+			<div class="library__item">
+				<img src="{{image}}" alt="" class="library__image">
+				<a href="/spotify-playlist?id={{id}}">
+					<div class="library__title">{{name}}</div>
+				</a>
+				<div class="library__amount">{{amount}} пiсень</div>
+			</div>
+			{{/each}}
+		</div>
+
+	</div>
+	{{/with}}
+</main>

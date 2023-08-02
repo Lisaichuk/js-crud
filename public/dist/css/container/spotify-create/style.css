@@ -11,7 +11,7 @@ a:hover {
   display: flex;
   justify-content: center;
   padding: 24px 8px;
-  background-color: black;
+  background-color: #121212;
   height: 100%;
   color: white;
 }
@@ -51,6 +51,33 @@ a:hover {
   font-size: 24px;
   color: white;
 }
+.track__author {
+  font-size: 16px;
+}
+
+.playlist {
+  display: grid;
+  grid-template-columns: 92px 1fr;
+  gap: 28px;
+  align-items: center;
+}
+.playlist__list {
+  display: grid;
+  gap: 28px;
+}
+.playlist__content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+}
+.playlist__name {
+  font-size: 24px;
+  color: white;
+}
+.playlist__amount {
+  font-size: 16px;
+}
 
 .header {
   display: flex;
@@ -76,7 +103,7 @@ a:hover {
   border-bottom: 1px solid #ddd;
 }
 .form__button {
-  color: black;
+  color: #121212;
   background-color: #20D562;
   max-width: fit-content;
   font-size: 20px;

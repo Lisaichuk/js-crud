@@ -1,0 +1,35 @@
+@use '../../lib/service.scss' as s;
+
+@use '../../lib/spotify.scss' as spotify;
+
+.header {
+	display: grid;
+	grid-template-columns: auto 54px 54px;
+	gap: s.space(9);
+	align-items: center;
+}
+
+.library {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: s.space(13) s.space(8);
+
+	&__item {
+		display: grid;
+		gap: s.space(4);
+	}
+
+	&__image {
+		width: 284px;
+	}
+
+	&__title {
+		font-size: 24px;
+		color: s.color(light);
+	}
+
+	&__amount {
+		font-size: s.size(default);
+		color: s.color(light-gray);
+	}
+}
