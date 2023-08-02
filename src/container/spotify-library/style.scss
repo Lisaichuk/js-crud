@@ -20,16 +20,16 @@
 	}
 
 	&__image {
-		width: 284px;
+		width: 280px;
 	}
 
 	&__title {
 		font-size: 24px;
-		color: s.color(light);
+		color: s.color('mainWhite');
 	}
 
 	&__amount {
-		font-size: s.size(default);
-		color: s.color(light-gray);
+		font-size: 16px;
+		color: s.color('gray');
 	}
 }

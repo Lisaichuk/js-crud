@@ -26,7 +26,7 @@ class Track {
     return this.#list.reverse()
   }
 
-  static getById(id) {
+  static getTrackById(id) {
     return this.#list.find((track) => track.id === id)
   }
 }
@@ -84,7 +84,7 @@ class Playlist {
     this.id = Math.floor(1000 + Math.random() * 9000)
     this.name = name
     this.tracks = []
-    this.image = 'https://picsum.photos/100/100'
+    this.image = 'https://picsum.photos/280/280'
   }
 
   static create(name) {
@@ -121,7 +121,7 @@ class Playlist {
   }
 
   addTrack(trackId) {
-    this.tracks.push(Track.getById(trackId))
+    this.tracks.push(Track.getTrackById(trackId))
     return this.tracks.reverse()
   }
 
@@ -292,10 +292,40 @@ router.get('/spotify-track-delete', function (req, res) {
 
 router.get('/spotify-playlist-add', function (req, res) {
   const playlistId = Number(req.query.playlistId)
+
+  const playlist = Playlist.getById(playlistId)
+
+  if (!playlist) {
+    return res.render('alert', {
+      style: 'alert',
+
+      data: {
+        message: 'Помилка',
+        info: 'Такого плейліста не знайдено',
+        linkBack: '/',
+      },
+    })
+  }
+
+  res.render('spotify-playlist-add', {
+    style: 'spotify-playlist-add',
+
+    data: {
+      playlistId: playlist.id,
+      tracks: Track.getList(),
+      name: playlist.name,
+    },
+  })
+  // ↑↑ сюди вводимо JSON дані
+})
+
+// ================================================================
+
+router.get('/spotify-track-add', function (req, res) {
+  const playlistId = Number(req.query.playlistId)
   const trackId = Number(req.query.trackId)
 
   const playlist = Playlist.getById(playlistId)
-  //   const track = Track.getById(trackId)
 
   if (!playlist) {
     return res.render('alert', {
@@ -311,8 +341,8 @@ router.get('/spotify-playlist-add', function (req, res) {
 
   playlist.addTrack(trackId)
 
-  res.render('spotify-playlist-add', {
-    style: 'spotify-playlist-add',
+  res.render('spotify-playlist', {
+    style: 'spotify-playlist',
 
     data: {
       playlistId: playlist.id,
@@ -367,7 +397,7 @@ router.post('/spotify-search', function (req, res) {
 
 // ================================================================
 
-router.post('/', function (req, res) {
+router.get('/', function (req, res) {
   let isEmpty = true
 
   const list = Playlist.getList()

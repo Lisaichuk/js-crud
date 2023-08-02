@@ -1,17 +1,117 @@
-/* Error: Undefined function.
- *    ,
- * 32 |         font-size: s.size(default);
- *    |                    ^^^^^^^^^^^^^^^
- *    '
- *   src\container\spotify-library\style.scss 32:14  root stylesheet */
-
-body::before {
-  font-family: "Source Code Pro", "SF Mono", Monaco, Inconsolata, "Fira Mono",
-      "Droid Sans Mono", monospace, monospace;
-  white-space: pre;
-  display: block;
-  padding: 1em;
-  margin-bottom: 1em;
-  border-bottom: 2px solid black;
-  content: "Error: Undefined function.\a    \2577 \a 32 \2502          font-size: s.size(default);\d\a    \2502                     ^^^^^^^^^^^^^^^\a    \2575 \a   src\\container\\spotify-library\\style.scss 32:14  root stylesheet";
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: opacity 0.6s;
 }
+a:hover {
+  opacity: 0.6;
+}
+
+.main {
+  display: flex;
+  justify-content: center;
+  padding: 24px 8px;
+  background-color: #121212;
+  height: 100%;
+  color: white;
+}
+.main__content {
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+}
+
+.title {
+  font-size: 24px;
+}
+
+.title--center {
+  text-align: center;
+}
+
+.title--small {
+  font-size: 20px;
+}
+
+.title--big {
+  font-size: 32px;
+}
+
+.track {
+  display: grid;
+  grid-template-columns: 92px 1fr 42px;
+  gap: 28px;
+  align-items: center;
+}
+.track__list {
+  display: grid;
+  gap: 28px;
+}
+.track__content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+}
+.track__name {
+  font-size: 24px;
+  color: white;
+}
+.track__author {
+  font-size: 16px;
+}
+
+.playlist {
+  display: grid;
+  grid-template-columns: 92px 1fr;
+  gap: 28px;
+  align-items: center;
+}
+.playlist__list {
+  display: grid;
+  gap: 28px;
+}
+.playlist__content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+}
+.playlist__name {
+  font-size: 24px;
+  color: white;
+}
+.playlist__amount {
+  font-size: 16px;
+}
+
+.header {
+  display: grid;
+  grid-template-columns: auto 54px 54px;
+  gap: 36px;
+  align-items: center;
+}
+
+.library {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 52px 32px;
+}
+.library__item {
+  display: grid;
+  gap: 16px;
+}
+.library__image {
+  width: 280px;
+}
+.library__title {
+  font-size: 24px;
+  color: white;
+}
+.library__amount {
+  font-size: 16px;
+}
+
+/*# sourceMappingURL=style.css.map */

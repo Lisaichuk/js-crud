@@ -1,7 +1,7 @@
 <main class="main">
 	{{#with data}}
 	<div class="main__content">
-		<h1 class="title title--center">{{name}}</h1>
+		<h1 class="title">{{name}}</h1>
 
 		<a href="/spotify-playlist-add?playlistId={{playlistId}}" class="add-button">
 			<img src="/svg/add_button.svg">
@@ -11,7 +11,7 @@
 		<ul class="track__list">
 			{{#each tracks}}
 			<li class="track">
-				<img src="{{image}}" alt="{{name}}">
+				<img src="{{image}}" alt="add">
 
 				<div class="track__content">
 					<strong class="track__name">{{name}}</strong>
