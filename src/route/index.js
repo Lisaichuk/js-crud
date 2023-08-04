@@ -518,10 +518,13 @@ router.post('/purchase-edit', function (req, res) {
   if (!purchase) {
     return res.render('alert', {
       style: 'alert',
-      message: 'Помилка!',
-      info: 'Замовлення не знайдено',
-      linkBack: `purchase-list`,
-      linkText: 'Перейти до списку замовлень',
+
+      data: {
+        message: 'Помилка!',
+        info: 'Замовлення не знайдено',
+        linkBack: `purchase-list`,
+        linkText: 'Перейти до списку замовлень',
+      },
     })
   }
 
@@ -535,19 +538,25 @@ router.post('/purchase-edit', function (req, res) {
   if (!editedPurchase) {
     res.render('alert', {
       style: 'alert',
-      message: 'Сталася помилка',
-      info: 'Неможливо змінити дані покупця',
-      linkBack: `purchase-info`,
-      linkText: 'Повернутись назад',
+
+      data: {
+        message: 'Сталася помилка',
+        info: 'Неможливо змінити дані покупця',
+        linkBack: `purchase-info`,
+        linkText: 'Повернутись назад',
+      },
     })
   }
 
   res.render('alert', {
     style: 'alert',
-    message: 'Успішно!',
-    info: 'Інформація про покупця оновлена!',
-    linkBack: `purchase-list`,
-    linkText: 'Повернутись назад',
+
+    data: {
+      message: 'Успішно!',
+      info: 'Інформація про покупця оновлена!',
+      linkBack: `purchase-list`,
+      linkText: 'Повернутись назад',
+    },
   })
 })
 
